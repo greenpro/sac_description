@@ -1,0 +1,368 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="andreas_arm">
+
+    <!--note that the origin of each part is in reference to the joint it is attached to -->
+    <!--xacro:property name="pi"                value="3.141592" /-->
+    
+    <xacro:property name="baseRadius"          value="1.00" />
+    <xacro:property name="baseZ"               value=".100" />
+
+    <xacro:property name="alphaRadius0"        value=".086" />
+    <xacro:property name="alphaZ0"             value=".019" />
+    <xacro:property name="alphaRadius1"        value=".080" />
+    <xacro:property name="alphaZ1"             value=".100" />
+    <xacro:property name="alphaJointX"         value=".010" />
+    <xacro:property name="alphaJointBlockY"    value=".100" />
+    <xacro:property name="alphaJointBlockZ"    value=".130" />
+    <xacro:property name="alphaJointSpaceX"    value=".080" />
+    <xacro:property name="alphaJointRadius"    value=".065" />
+    <xacro:property name="alphaMotorRadius"    value=".047" />
+    <xacro:property name="alphaMotorX"         value=".030" />
+
+    <xacro:property name="betaJointRadius0"    value=".067" />
+    <xacro:property name="betaJointX0"         value=".080" />
+    <xacro:property name="betaShaftY"          value=".077" />
+    <xacro:property name="betaShaftX0"         value=".074" />
+    <xacro:property name="betaShaftZ0"         value=".110" />
+    <xacro:property name="betaShaftSpacing1"   value=".080" />
+    <xacro:property name="betaShaftX1"         value=".010" />
+    <xacro:property name="betaShaftZ1"         value=".145" />
+    <xacro:property name="betaShaftRadius1"    value=".048" />
+
+    <xacro:property name="gammaX"              value=".080" />
+    <xacro:property name="gammaShaftY"         value=".060" />
+    <xacro:property name="gammaShaftZ0"        value=".061" />
+    <xacro:property name="gammaShaftZ1"        value=".088" />
+    <xacro:property name="gammaJointRadius"    value=".047" />
+
+    <xacro:property name="deltaJointRadius0"   value=".030" />
+    <xacro:property name="deltaJointZ0"        value=".019" />
+    <xacro:property name="deltaShaftX"         value=".060" />
+    <xacro:property name="deltaShaftY0"        value=".037" />
+    <xacro:property name="deltaShaftZ0"        value=".045" />
+    <xacro:property name="deltaShaftOffset"    value=".012" />
+    <xacro:property name="deltaShaftY1"        value=".025" />
+    <xacro:property name="deltaShaftZ1"        value=".088" />
+    <xacro:property name="deltaJointRadius1"   value=".030" />
+    <xacro:property name="deltaJointY1"        value=".052" />
+
+    <xacro:property name="epsilonJointX0"      value=".065" />
+    <xacro:property name="epsilonJointRadius0" value=".030" />
+    <xacro:property name="epsilonJointOffset1" value=".002" />
+    <xacro:property name="epsilonJointZ1"      value=".030" />
+    <xacro:property name="epsilonJointRadius1" value=".027" />
+
+    <xacro:property name="zetaJointRadius"     value=".027" />
+    <xacro:property name="zetaJointZ"          value=".005" />
+
+
+    <material name="brown">
+        <color rgba="${255/255} ${185/255} ${  0/255} ${255/255}" />
+    </material>
+    
+    <material name="red">
+        <color rgba="${255/255} ${  0/255} ${  0/255} ${255/255}" />
+    </material>
+
+    <material name="white">
+        <color rgba="${255/255} ${255/255} ${255/255} ${255/255}" />
+    </material>
+
+
+    <xacro:macro name="defaultInertial" params="mass">
+        <inertial>
+            <mass value="${mass}" />
+            <inertia 
+                ixx="1.0" 
+                ixy="0.0" 
+                ixz="0.0"
+                iyy="1.0"
+                iyz="0.0"
+                izz="1.0" />
+        </inertial>
+    </xacro:macro>
+
+    <xacro:macro name="cylinderTemplate" params="length radius roll pitch yaw ox oy oz color">
+        <visual>
+            <geometry>
+                <cylinder length="${length}" radius="${radius}" />
+            </geometry>
+            <origin rpy="${roll} ${pitch} ${yaw}" xyz="${ox} ${oy} ${oz}" />
+            <material name="${color}" />
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="${length}" radius="${radius}" />
+            </geometry>
+            <origin rpy="${roll} ${pitch} ${yaw}" xyz="${ox} ${oy} ${oz}" />
+            <material name="${color}" />
+        </collision>
+    </xacro:macro>
+
+    <xacro:macro name="boxTemplate" params="x y z roll pitch yaw ox oy oz color">
+        <visual>
+            <geometry>
+                <box size="${x} ${y} ${z}" />
+            </geometry>
+            <origin rpy="${roll} ${pitch} ${yaw}" xyz="${ox} ${oy} ${oz}" />
+            <material name="${color}" />
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${x} ${y} ${z}" />
+            </geometry>
+            <origin rpy="${roll} ${pitch} ${yaw}" xyz="${ox} ${oy} ${oz}" />
+            <material name="${color}" />
+        </collision>
+    </xacro:macro>
+
+
+    <link name="world" />
+
+    <link name="base_link">
+        <xacro:cylinderTemplate length="${baseZ}" radius="${baseRadius}" roll="0" pitch="0" yaw="0" ox="0" oy="0" oz="${baseZ / 2}" color="white" />
+
+        <xacro:defaultInertial mass="1000" />
+    </link>
+
+    <link name="alpha_link">
+        <!-- Shaft -->
+        <xacro:cylinderTemplate length="${alphaZ0}" radius="${alphaRadius0}" roll="0" pitch="0" yaw="0" ox="0" oy="0" oz="${alphaZ0 / 2}" color="white" />
+
+        <xacro:cylinderTemplate length="${alphaZ1}" radius="${alphaRadius1}" roll="0" pitch="0" yaw="0" ox="0" oy="0" oz="${alphaZ0 + alphaZ1 / 2}" color="white" />
+
+        <!-- joint Hinge -->
+        <xacro:boxTemplate x="${alphaJointX}" y="${alphaJointBlockY}" z="${alphaJointBlockZ}" 
+            roll="0" pitch="0" yaw="0" ox="${alphaJointSpaceX / 2 + alphaJointX / 2}" oy="0" oz="${alphaZ0 + alphaZ1 + alphaJointBlockZ / 2}" color="white" />
+
+        <xacro:boxTemplate x="${alphaJointX}" y="${alphaJointBlockY}" z="${alphaJointBlockZ}" 
+            roll="0" pitch="0" yaw="0" ox="-${alphaJointSpaceX / 2 + alphaJointX / 2}" oy="0" oz="${alphaZ0 + alphaZ1 + alphaJointBlockZ / 2}" color="white" />
+
+        <xacro:cylinderTemplate length="${alphaJointX}" radius="${alphaJointRadius}" 
+            roll="0" pitch="${pi / 2}" yaw="0" ox="${alphaJointSpaceX / 2 + alphaJointX / 2}" oy="0" oz="${alphaZ0 + alphaZ1 + alphaJointBlockZ}" color="white" />
+
+        <xacro:cylinderTemplate length="${alphaJointX}" radius="${alphaJointRadius}" 
+            roll="0" pitch="${pi / 2}" yaw="0" ox="-${alphaJointSpaceX / 2 + alphaJointX / 2}" oy="0" oz="${alphaZ0 + alphaZ1 + alphaJointBlockZ}" color="white" />
+
+        <!-- Motor Cover -->
+        <xacro:cylinderTemplate length="${alphaMotorX}" radius="${alphaMotorRadius}" 
+            roll="0" pitch="${pi / 2}" yaw="0" ox="${alphaJointSpaceX / 2 + alphaJointX + alphaMotorX / 2}" oy="0" oz="${alphaZ0 + alphaZ1 + alphaJointBlockZ}" color="white" />
+
+        <xacro:cylinderTemplate length="${alphaMotorX}" radius="${alphaMotorRadius}" 
+            roll="0" pitch="${pi / 2}" yaw="0" ox="-${alphaJointSpaceX / 2 + alphaJointX + alphaMotorX / 2}" oy="0" oz="${alphaZ0 + alphaZ1 + alphaJointBlockZ}" color="white" />
+
+        <xacro:defaultInertial mass="1" />
+    </link>
+
+    <link name="beta_link">
+        <!-- Joint hinge -->
+        <xacro:cylinderTemplate length="${betaJointX0}" radius="${betaJointRadius0}" roll="0" pitch="${pi / 2}" yaw="0" ox="0" oy="0" oz="0" color="white" />
+
+        <!-- shaft -->
+        <xacro:boxTemplate x="${betaShaftX0}" y="${betaShaftY}" z="${betaShaftZ0}" 
+            roll="0" pitch="0" yaw="0" ox="0" oy="0" oz="${betaShaftZ0 / 2}" color="white" />
+
+        <xacro:cylinderTemplate length="${betaShaftSpacing1 + betaShaftX1 * 2}" radius="${betaShaftY / 2}" 
+            roll="0" pitch="${pi / 2}" yaw="0" ox="0" oy="0" oz="${betaShaftZ0}" color="white" />
+
+        <xacro:boxTemplate x="${betaShaftX1}" y="${betaShaftY}" z="${betaShaftZ1}" 
+            roll="0" pitch="0" yaw="0" ox="${betaShaftSpacing1 / 2 + betaShaftX1 / 2}" oy="0" oz="${betaShaftZ0 + betaShaftZ1 / 2}" color="white" />
+        
+        <xacro:boxTemplate x="${betaShaftX1}" y="${betaShaftY}" z="${betaShaftZ1}" 
+            roll="0" pitch="0" yaw="0" ox="-${betaShaftSpacing1 / 2 + betaShaftX1 / 2}" oy="0" oz="${betaShaftZ0 + betaShaftZ1 / 2}" color="white" />
+
+        <!-- Joint hinge -->
+        <xacro:cylinderTemplate length="${betaShaftX1}" radius="${betaShaftRadius1}" 
+            roll="0" pitch="${pi / 2}" yaw="0" ox="${betaShaftSpacing1 / 2 + betaShaftX1 / 2}" oy="0" oz="${betaShaftZ0 + betaShaftZ1}" color="white" />
+        
+        <xacro:cylinderTemplate length="${betaShaftX1}" radius="${betaShaftRadius1}" 
+            roll="0" pitch="${pi / 2}" yaw="0" ox="-${betaShaftSpacing1 / 2 + betaShaftX1 / 2}" oy="0" oz="${betaShaftZ0 + betaShaftZ1}" color="white" />
+
+        <xacro:defaultInertial mass="1" />
+    </link>
+
+    <link name="gamma_link">
+        <!-- Shaft -->
+        <xacro:boxTemplate x="${gammaX}" y="${gammaShaftY}" z="${gammaShaftZ0}" 
+            roll="0" pitch="0" yaw="0" ox="0" oy="0" oz="-${gammaShaftZ0 / 2}" color="white" />
+
+        <xacro:boxTemplate x="${gammaX}" y="${gammaShaftY}" z="${gammaShaftZ1}" 
+            roll="0" pitch="0" yaw="0" ox="0" oy="0" oz="${gammaShaftZ1 / 2}" color="white" />
+
+        <!-- Joint -->
+        <xacro:cylinderTemplate length="${gammaX}" radius="${gammaJointRadius}" 
+            roll="0" pitch="${pi / 2}" yaw="0" ox="0" oy="0" oz="0" color="white" />
+
+        <xacro:defaultInertial mass="1" />
+    </link>
+
+    <link name="delta_link">
+        <!-- Joint 0 -->
+        <xacro:cylinderTemplate length="${deltaJointZ0}" radius="${deltaJointRadius0}" 
+            roll="0" pitch="0" yaw="0" ox="0" oy="0" oz="${deltaJointZ0 / 2}" color="white" />
+
+        <!-- Shaft -->
+        <xacro:boxTemplate x="${deltaShaftX}" y="${deltaShaftY0}" z="${deltaShaftZ0}" 
+            roll="0" pitch="0" yaw="0" ox="0" oy="${deltaShaftOffset}" oz="${deltaShaftZ0 / 2}" color="white" />
+
+        <xacro:boxTemplate x="${deltaShaftX}" y="${deltaShaftY1}" z="${deltaShaftZ1}" 
+            roll="0" pitch="0" yaw="0" ox="0" oy="${deltaShaftOffset + (deltaShaftY0 - deltaShaftY1) / 2}" oz="${deltaShaftZ0 + deltaShaftZ1 / 2}" color="white" />
+
+        <!-- Joint 1 -->
+        <xacro:cylinderTemplate length="${deltaJointY1}" radius="${deltaJointRadius1}" 
+            roll="${pi / 2}" pitch="0" yaw="0" ox="0" oy="${deltaShaftOffset + (deltaShaftY0 - deltaShaftY1) / 2 + (deltaJointY1 - deltaShaftY1) / 2}" oz="${deltaShaftZ0 + deltaShaftZ1}" color="white" />
+
+        <xacro:defaultInertial mass="1" />
+    </link>
+
+    <link name="epsilon_link">
+        <xacro:cylinderTemplate length="${epsilonJointX0}" radius="${epsilonJointRadius0}" 
+            roll="${pi / 2}" pitch="0" yaw="0" ox="0" oy="${epsilonJointX0 / 2}" oz="0" color="white" />
+
+        <xacro:cylinderTemplate length="${epsilonJointZ1}" radius="${epsilonJointRadius1}" 
+            roll="0" pitch="0" yaw="0" ox="0" oy="${epsilonJointRadius1 + epsilonJointOffset1}" oz="${epsilonJointZ1 / 2}" color="white" />
+
+        <xacro:defaultInertial mass="1" />
+    </link>
+
+    <link name="zeta_link">
+        <!-- Joint -->
+        <xacro:cylinderTemplate length="${zetaJointZ}" radius="${zetaJointRadius}" 
+            roll="0" pitch="0" yaw="0" ox="0" oy="0" oz="${zetaJointZ / 2}" color="white" />
+
+        <!-- Marker -->
+        <xacro:boxTemplate x="${zetaJointRadius}" y="${zetaJointRadius / 4}" z="${zetaJointZ}" 
+            roll="0" pitch="0" yaw="0" ox="${zetaJointRadius / 2}" oy="0" oz="${zetaJointZ * 3 / 2}" color="white" />
+
+
+        <xacro:defaultInertial mass="1" />
+    </link>
+
+    <joint name="world_joint" type="fixed">
+        <parent link="world" />
+        <child link="base_link" />
+    </joint>
+
+    <transmission name="alphaTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="alpha_joint" type="SimpleTransmission">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="alpha_motor">
+            <machanicalReduction>1</machanicalReduction>
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
+
+    <joint name="alpha_joint" type="revolute">
+        <parent link="base_link" />
+        <child  link="alpha_link" />
+        <axis   xyz="0 0 1" />
+        <limit  effort="1000.0" lower="0" upper="6.28" velocity="0.5" />
+        <origin rpy="0 0 0" xyz="0 0 ${baseZ}" />
+    </joint>
+
+    <transmission name="betaTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="beta_joint" type="SimpleTransmission">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="beta_motor">
+            <machanicalReduction>1</machanicalReduction>
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
+
+    <joint name="beta_joint" type="revolute">
+        <parent link="alpha_link" />
+        <child  link="beta_link" />
+        <axis   xyz="1 0 0" />
+        <limit  effort="1000.00" lower="-2.36" upper="2.36" velocity="0.5" />
+        <origin rpy="0 0 0" xyz="0 0 ${alphaZ0 + alphaZ1 + alphaJointBlockZ}" />
+    </joint>
+
+    <transmission name="gammaTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="gamma_joint" type="SimpleTransmission">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="gamma_motor">
+            <machanicalReduction>1</machanicalReduction>
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
+
+    <joint name="gamma_joint" type="revolute">
+        <parent link="beta_link" />
+        <child  link="gamma_link" />
+        <axis   xyz="1 0 0" />
+        <limit  effort="1000.00" lower="-2.36" upper="2.36" velocity="0.5" />
+        <origin rpy="0 0 0" xyz="0 0 ${betaShaftZ0 + betaShaftZ1}" />
+    </joint>
+
+    <transmission name="deltaTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="delta_joint" type="SimpleTransmission">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="delta_motor">
+            <machanicalReduction>1</machanicalReduction>
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
+
+    <joint name="delta_joint" type="revolute">
+        <parent link="gamma_link" />
+        <child  link="delta_link" />
+        <axis   xyz="0 0 1" />
+        <limit  effort="1000.00" lower="-2.36" upper="2.36" velocity="0.5" />
+        <origin rpy="0 0 0" xyz="0 0 ${gammaShaftZ1}" />
+    </joint>
+
+    <transmission name="epsilonTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="epsilon_joint" type="SimpleTransmission">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="epsilon_motor">
+            <machanicalReduction>1</machanicalReduction>
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
+
+    <joint name="epsilon_joint" type="revolute">
+        <parent link="delta_link" />
+        <child  link="epsilon_link" />
+        <axis   xyz="0 1 0" />
+        <limit  effort="1000.00" lower="-2.36" upper="2.36" velocity="0.5" />
+        <origin rpy="0 0 ${pi}" xyz="0 ${deltaShaftOffset + (deltaShaftY0 - deltaShaftY1) / 2 + (deltaJointY1 - deltaShaftY1) / 2 - deltaShaftY1} ${deltaShaftZ0 + deltaShaftZ1}" />
+    </joint>
+
+    <transmission name="zetaTransmission">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="zeta_joint" type="SimpleTransmission">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="zeta_motor">
+            <machanicalReduction>1</machanicalReduction>
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+        </actuator>
+    </transmission>
+
+    <joint name="zeta_joint" type="revolute">
+        <parent link="epsilon_link" />
+        <child  link="zeta_link" />
+        <axis   xyz="0 0 1" />
+        <limit  effort="1000.00" lower="-2.36" upper="2.36" velocity="0.5" />
+        <origin rpy="0 0 0" xyz="0 ${epsilonJointRadius1 + epsilonJointOffset1} ${epsilonJointZ1}" />
+    </joint>
+
+    <!-- Gazebo plugin for ROS Control -->
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/andreas_arm</robotNamespace>
+        </plugin>
+    </gazebo>
+  
+</robot>
+
