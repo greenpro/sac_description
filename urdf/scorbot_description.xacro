@@ -41,7 +41,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/base_Link.STL" />
+          filename="package://sac_description/meshes/base_Link.STL" />
       </geometry>
       <material
         name="">
@@ -55,7 +55,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/base_Link.STL" />
+          filename="package://sac_description/meshes/base_Link.STL" />
       </geometry>
     </collision>
     <xacro:defaultInertial mass="1" />
@@ -89,7 +89,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/shoulder_Link.STL" />
+          filename="package://sac_description/meshes/shoulder_Link.STL" />
       </geometry>
       <material
         name="">
@@ -103,7 +103,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/shoulder_Link.STL" />
+          filename="package://sac_description/meshes/shoulder_Link.STL" />
       </geometry>
     </collision>
     <xacro:defaultInertial mass="1" />
@@ -163,7 +163,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/elbow_Link.STL" />
+          filename="package://sac_description/meshes/elbow_Link.STL" />
       </geometry>
       <material
         name="">
@@ -177,7 +177,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/elbow_Link.STL" />
+          filename="package://sac_description/meshes/elbow_Link.STL" />
       </geometry>
     </collision>
     <xacro:defaultInertial mass="1" />
@@ -237,7 +237,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/pitch_Link.STL" />
+          filename="package://sac_description/meshes/pitch_Link.STL" />
       </geometry>
       <material
         name="">
@@ -251,7 +251,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/pitch_Link.STL" />
+          filename="package://sac_description/meshes/pitch_Link.STL" />
       </geometry>
     </collision>
     <xacro:defaultInertial mass="1" />
@@ -311,7 +311,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/roll_Link.STL" />
+          filename="package://sac_description/meshes/roll_Link.STL" />
       </geometry>
       <material
         name="">
@@ -325,7 +325,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/roll_Link.STL" />
+          filename="package://sac_description/meshes/roll_Link.STL" />
       </geometry>
     </collision>
     <xacro:defaultInertial mass="1" />
@@ -385,7 +385,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/gripper_Link.STL" />
+          filename="package://sac_description/meshes/gripper_Link.STL" />
       </geometry>
       <material
         name="">
@@ -399,7 +399,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/gripper_Link.STL" />
+          filename="package://sac_description/meshes/gripper_Link.STL" />
       </geometry>
     </collision>
     <xacro:defaultInertial mass="1" />
@@ -459,7 +459,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/pad1_Link.STL" />
+          filename="package://sac_description/meshes/pad1_Link.STL" />
       </geometry>
       <material
         name="">
@@ -473,7 +473,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/pad1_Link.STL" />
+          filename="package://sac_description/meshes/pad1_Link.STL" />
       </geometry>
     </collision>
     <xacro:defaultInertial mass="1" />
@@ -533,7 +533,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/pad2_Link.STL" />
+          filename="package://sac_description/meshes/pad2_Link.STL" />
       </geometry>
       <material
         name="">
@@ -547,7 +547,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://andreas_arm_description/meshes/pad2_Link.STL" />
+          filename="package://sac_description/meshes/pad2_Link.STL" />
       </geometry>
     </collision>
     <xacro:defaultInertial mass="1" />
