@@ -108,6 +108,7 @@
     </collision>
     <xacro:defaultInertial mass="1" />
   </link>
+
   <joint
     name="base_joint"
     type="revolute">
@@ -182,6 +183,7 @@
     </collision>
     <xacro:defaultInertial mass="1" />
   </link>
+
   <joint
     name="shoulder_joint"
     type="revolute">
@@ -256,6 +258,7 @@
     </collision>
     <xacro:defaultInertial mass="1" />
   </link>
+  
   <joint
     name="elbow_joint"
     type="revolute">
@@ -330,6 +333,7 @@
     </collision>
     <xacro:defaultInertial mass="1" />
   </link>
+  
   <joint
     name="pitch_joint"
     type="revolute">
@@ -404,6 +408,7 @@
     </collision>
     <xacro:defaultInertial mass="1" />
   </link>
+
   <joint
     name="roll_joint"
     type="revolute">
@@ -478,6 +483,7 @@
     </collision>
     <xacro:defaultInertial mass="1" />
   </link>
+
   <joint
     name="pad1_joint"
     type="revolute">
@@ -552,6 +558,7 @@
     </collision>
     <xacro:defaultInertial mass="1" />
   </link>
+
   <joint
     name="pad2_joint"
     type="revolute">

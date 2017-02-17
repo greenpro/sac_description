@@ -55,6 +55,8 @@
     <xacro:property name="zetaJointRadius"     value=".027" />
     <xacro:property name="zetaJointZ"          value=".005" />
 
+    <xacro:property name="endEffectorZ"        value=".010" />
+
 
     <material name="brown">
         <color rgba="${255/255} ${185/255} ${  0/255} ${255/255}" />
@@ -238,6 +240,14 @@
         <xacro:defaultInertial mass="1" />
     </link>
 
+    <link name="end_effector">
+        <xacro:boxTemplate x="${zetaJointRadius / 4}" y="${zetaJointRadius / 4}" z="${endEffectorZ}" 
+            roll="0" pitch="0" yaw="0" ox="${zetaJointRadius * 3 / 4}" oy="0" oz="${zetaJointZ}" color="white" />
+
+
+        <xacro:defaultInertial mass="1" />
+    </link>
+
     <joint name="world_joint" type="fixed">
         <parent link="world" />
         <child link="base_link" />
@@ -355,6 +365,11 @@
         <axis   xyz="0 0 1" />
         <limit  effort="1000.00" lower="-2.36" upper="2.36" velocity="0.5" />
         <origin rpy="0 0 0" xyz="0 ${epsilonJointRadius1 + epsilonJointOffset1} ${epsilonJointZ1}" />
+    </joint>
+
+    <joint name="end_effector_joint" type="fixed">
+        <parent link="zeta_link" />
+        <child link="end_effector" />
     </joint>
 
     <!-- Gazebo plugin for ROS Control -->
