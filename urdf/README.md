@@ -1,4 +1,4 @@
-# Southern Arm Control Description
+# Southern Arm Control Description > urdf
 
 This project holds the robot description files the Southern Arm Control workspace.
 
@@ -27,3 +27,4 @@ urdf/
 
 ## Notes
 * Much of the code for the scorbot comes from in this package has been modified from https://github.com/baijuchaudhari/sboter4u.git 
+* Much of the code for this section is modified from the Gazebo tutorial.
