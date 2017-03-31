@@ -2,7 +2,6 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="scorbot_model">
 
-
   <xacro:macro name="defaultInertial" params="mass">
     <inertial>
       <mass value="${mass}" />
@@ -124,7 +123,7 @@
     <limit
       lower="-2.7054"
       upper="2.7054"
-      effort="5000"
+      effort="500"
       velocity="0.3488" />
     <dynamics
       damping="0.01"
@@ -345,7 +344,7 @@
     <child
       link="roll_Link" />
     <axis
-      xyz="0 -1 0" />
+      xyz="0 1 0" />
     <limit
       lower="-2.2689"
       upper="2.2689"
@@ -499,7 +498,7 @@
     <limit
       lower="0"
       upper="1.5709"
-      effort="100"
+      effort="1"
       velocity="2" />
     <dynamics
       damping="0.01"
@@ -574,7 +573,7 @@
     <limit
       lower="0"
       upper="1.5709"
-      effort="100"
+      effort="1"
       velocity="2" />
     <dynamics
       damping="0.01"
