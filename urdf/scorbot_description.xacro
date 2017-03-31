@@ -124,7 +124,7 @@
     <limit
       lower="-2.7054"
       upper="2.7054"
-      effort="5"
+      effort="5000"
       velocity="0.3488" />
     <dynamics
       damping="0.01"
@@ -195,11 +195,11 @@
     <child
       link="elbow_Link" />
     <axis
-      xyz="1 0 0" />
+      xyz="-1 0 0" />
     <limit
-      lower="-2.2690"
-      upper="0.5236"
-      effort="4"
+      lower="-0.6109"
+      upper="2.2689"
+      effort="400"
       velocity="0.4587" />
     <dynamics
       damping="0.01"
@@ -270,11 +270,11 @@
     <child
       link="pitch_Link" />
     <axis
-      xyz="1 0 0" />
+      xyz="-1 0 0" />
     <limit
-      lower="-1.8327"
-      upper="2.2690"
-      effort="3"
+      lower="-2.2689"
+      upper="2.2689"
+      effort="300"
       velocity="0.4587" />
     <dynamics
       damping="0.01"
@@ -345,11 +345,11 @@
     <child
       link="roll_Link" />
     <axis
-      xyz="0 1 0" />
+      xyz="0 -1 0" />
     <limit
-      lower="-2.2690"
-      upper="2.2690"
-      effort="2"
+      lower="-2.2689"
+      upper="2.2689"
+      effort="200"
       velocity="1.4478" />
     <dynamics
       damping="0.01"
@@ -424,7 +424,7 @@
     <limit
       lower="-9.9490"
       upper="9.9490"
-      effort="2"
+      effort="200"
       velocity="1.8491" />
     <dynamics
       damping="0.01"
@@ -499,7 +499,7 @@
     <limit
       lower="0"
       upper="1.5709"
-      effort="1"
+      effort="100"
       velocity="2" />
     <dynamics
       damping="0.01"
@@ -574,7 +574,7 @@
     <limit
       lower="0"
       upper="1.5709"
-      effort="1"
+      effort="100"
       velocity="2" />
     <dynamics
       damping="0.01"
