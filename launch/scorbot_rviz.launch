@@ -1,6 +1,7 @@
+<?xml version="1.0"?>
 <launch>
     <param name="robot_description"
-        command="$(find xacro)/xacro --inorder '$(find sac_description)/urdf/scorbot.xacro' />
+        command="$(find xacro)/xacro --inorder '$(find sac_description)/urdf/scorbot_description.xacro'" />
 
     <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
         <param name="use_gui" value="TRUE" />
@@ -8,6 +9,6 @@
 
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 
-    <!--node name="rviz" pkg="rviz" type="rviz" 
-        args"-d $(find scorbot_description)/launch/scorbot.rviz" /-->
+    <node name="rviz" pkg="rviz" type="rviz" 
+        args="-d $(find scorbot_config)/launch/moveit.rviz" />
 </launch>

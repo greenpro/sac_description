@@ -188,7 +188,7 @@
     type="revolute">
     <origin
       xyz="0 -0.029 0.19766"
-      rpy="0 -8.6736E-19 -1.3878E-17" />
+      rpy="0 0 0" />
     <parent
       link="shoulder_Link" />
     <child
@@ -198,7 +198,7 @@
     <limit
       lower="-0.6109"
       upper="2.2689"
-      effort="400"
+      effort="1600"
       velocity="0.4587" />
     <dynamics
       damping="0.01"
@@ -269,7 +269,7 @@
     <child
       link="pitch_Link" />
     <axis
-      xyz="-1 0 0" />
+      xyz="1 0 0" />
     <limit
       lower="-2.2689"
       upper="2.2689"
@@ -348,7 +348,7 @@
     <limit
       lower="-2.2689"
       upper="2.2689"
-      effort="200"
+      effort="2"
       velocity="1.4478" />
     <dynamics
       damping="0.01"
@@ -423,7 +423,7 @@
     <limit
       lower="-9.9490"
       upper="9.9490"
-      effort="200"
+      effort="2"
       velocity="1.8491" />
     <dynamics
       damping="0.01"
@@ -590,6 +590,7 @@
       <hardwareInterface>EffortJointInterface</hardwareInterface>
     </actuator>
   </transmission>
+
 
     <!-- Gazebo plugin for ROS Control -->
     <gazebo>
