@@ -3,7 +3,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="scorbot_model">
 
   <xacro:macro name="defaultInertial" params="mass">
-    <inertial>
+    <!--inertial>
       <mass value="${mass}" />
       <inertia 
         ixx="1.0" 
@@ -12,7 +12,7 @@
         iyy="1.0"
         iyz="0.0"
         izz="1.0" />
-    </inertial>
+    </inertial-->
   </xacro:macro>
 
   <link
@@ -412,8 +412,8 @@
     name="roll_joint"
     type="revolute">
     <origin
-      xyz="0 0 0"
-      rpy="0 1.3878E-17 0" />
+      xyz="0 0 0.01"
+      rpy="0 0 0" />
     <parent
       link="roll_Link" />
     <child
@@ -421,9 +421,9 @@
     <axis
       xyz="0 0 1" />
     <limit
-      lower="-9.9490"
-      upper="9.9490"
-      effort="2"
+      lower="-1000"
+      upper="1000"
+      effort="1"
       velocity="1.8491" />
     <dynamics
       damping="0.01"
@@ -441,8 +441,8 @@
     </actuator>
   </transmission>
   
-  <link
-    name="pad1_Link">
+  <!--link
+    name="lpad_Link">
     <inertial>
       <origin
         xyz="-0.039374 5.5511E-17 -0.00025"
@@ -459,7 +459,7 @@
     </inertial>
     <visual>
       <origin
-        xyz="0 0 0"
+        xyz="0 0 0.0001"
         rpy="0 0 0" />
       <geometry>
         <mesh
@@ -473,50 +473,83 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 0"
+        xyz="0 0 0.0001"
         rpy="0 0 0" />
       <geometry>
         <mesh
           filename="package://sac_description/meshes/pad1_Link.STL" />
       </geometry>
     </collision>
-    <xacro:defaultInertial mass="1" />
-  </link>
+  </link-->
+
+    <link name="lpad_Link">
+        <inertial>
+            <mass value="0.007491" />
+            <inertia
+                ixx="1.0"
+                ixy="0.0"
+                ixz="0.0"
+                iyy="1.0"
+                iyz="0.0"
+                izz="1.0" />
+        </inertial>
+        <visual>
+            <geometry>
+                <box size="0.06 0.01 0.01" />
+            </geometry>
+            <origin xyz="-0.03 0 0" rpy="0 0 0" />
+            <material name="">
+                <color rgba="0.1 0 0 1" />
+            </material>    
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.05 0.01 0.01" />
+            </geometry>
+            <origin xyz="-0.03 0 0" rpy="0 0 0" />
+            <material name="">
+                <color rgba="0.1 0 0 1" />
+            </material>
+        </collision>
+    </link>
 
   <joint
-    name="pad1_joint"
+    name="lpad_joint"
     type="revolute">
     <origin
       xyz="0 -0.0545 -0.0905"
       rpy="1.5708 -0.74758 -1.5708" />
+    <!--origin
+      xyz="0 -0.0545 -0.0905"
+      rpy="1.5708 0 -1.5708" /-->
     <parent
       link="gripper_Link" />
     <child
-      link="pad1_Link" />
+      link="lpad_Link" />
     <axis
       xyz="0 0 1" />
     <limit
       lower="0"
       upper="1.5709"
-      effort="1"
+      effort="0.5"
       velocity="2" />
     <dynamics
       damping="0.01"
       friction="0.01" />
   </joint>
 
-  <transmission name="pad1Transmission">
+  <transmission name="lpadTransmission">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="pad1_joint" type="SimpleTransmission">
+    <joint name="lpad_joint" type="SimpleTransmission">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="pad1_motor">
+    <actuator name="lpad_motor">
       <machanicalReduction>1</machanicalReduction>
       <hardwareInterface>EffortJointInterface</hardwareInterface>
     </actuator>
   </transmission>
   
-  <link
+  <!--link
     name="pad2_Link">
     <inertial>
       <origin
@@ -556,10 +589,41 @@
       </geometry>
     </collision>
     <xacro:defaultInertial mass="1" />
-  </link>
+  </link-->
+
+    <link name="rpad_Link">
+        <inertial>
+            <mass value="0.007491" />
+            <inertia
+                ixx="1.0"
+                ixy="0.0"
+                ixz="0.0"
+                iyy="1.0"
+                iyz="0.0"
+                izz="1.0" />
+        </inertial>
+        <visual>
+            <geometry>
+                <box size="0.06 0.01 0.01" />
+            </geometry>
+            <origin xyz="-0.03 0 0" rpy="0 0 0" />
+            <material name="">
+                <color rgba="0.1 0 0 1" />
+            </material>    
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.05 0.01 0.01" />
+            </geometry>
+            <origin xyz="-0.03 0 0" rpy="0 0 0" />
+            <material name="">
+                <color rgba="0.1 0 0 1" />
+            </material>
+        </collision>
+    </link>
 
   <joint
-    name="pad2_joint"
+    name="rpad_joint"
     type="revolute">
     <origin
       xyz="0 0.0545 -0.0905"
@@ -567,7 +631,7 @@
     <parent
       link="gripper_Link" />
     <child
-      link="pad2_Link" />
+      link="rpad_Link" />
     <axis
       xyz="0 0 -1" />
     <limit
@@ -580,12 +644,12 @@
       friction="0.01" />
   </joint>
 
-  <transmission name="pad2Transmission">
+  <transmission name="rpadTransmission">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="pad2_joint" type="SimpleTransmission">
+    <joint name="rpad_joint" type="SimpleTransmission">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="pad2_motor">
+    <actuator name="rpad_motor">
       <machanicalReduction>1</machanicalReduction>
       <hardwareInterface>EffortJointInterface</hardwareInterface>
     </actuator>
