@@ -2,19 +2,6 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="scorbot_model">
 
-  <xacro:macro name="defaultInertial" params="mass">
-    <!--inertial>
-      <mass value="${mass}" />
-      <inertia 
-        ixx="1.0" 
-        ixy="0.0" 
-        ixz="0.0"
-        iyy="1.0"
-        iyz="0.0"
-        izz="1.0" />
-    </inertial-->
-  </xacro:macro>
-
   <link
       name="world" />
 
@@ -57,7 +44,6 @@
           filename="package://sac_description/meshes/base_Link.STL" />
       </geometry>
     </collision>
-    <xacro:defaultInertial mass="1" />
   </link>
   
   <joint name="world_joint" type="fixed">
@@ -105,7 +91,6 @@
           filename="package://sac_description/meshes/shoulder_Link.STL" />
       </geometry>
     </collision>
-    <xacro:defaultInertial mass="1" />
   </link>
 
   <joint
@@ -123,7 +108,7 @@
     <limit
       lower="-2.7054"
       upper="2.7054"
-      effort="500"
+      effort="5"
       velocity="0.3488" />
     <dynamics
       damping="0.01"
@@ -180,7 +165,6 @@
           filename="package://sac_description/meshes/elbow_Link.STL" />
       </geometry>
     </collision>
-    <xacro:defaultInertial mass="1" />
   </link>
 
   <joint
@@ -198,7 +182,7 @@
     <limit
       lower="-0.6109"
       upper="2.2689"
-      effort="1600"
+      effort="16"
       velocity="0.4587" />
     <dynamics
       damping="0.01"
@@ -255,7 +239,6 @@
           filename="package://sac_description/meshes/pitch_Link.STL" />
       </geometry>
     </collision>
-    <xacro:defaultInertial mass="1" />
   </link>
   
   <joint
@@ -273,7 +256,7 @@
     <limit
       lower="-2.2689"
       upper="2.2689"
-      effort="300"
+      effort="3"
       velocity="0.4587" />
     <dynamics
       damping="0.01"
@@ -330,7 +313,6 @@
           filename="package://sac_description/meshes/roll_Link.STL" />
       </geometry>
     </collision>
-    <xacro:defaultInertial mass="1" />
   </link>
   
   <joint
@@ -405,7 +387,6 @@
           filename="package://sac_description/meshes/gripper_Link.STL" />
       </geometry>
     </collision>
-    <xacro:defaultInertial mass="1" />
   </link>
 
   <joint
@@ -423,7 +404,7 @@
     <limit
       lower="-1000"
       upper="1000"
-      effort="1"
+      effort="4"
       velocity="1.8491" />
     <dynamics
       damping="0.01"
@@ -484,29 +465,32 @@
 
     <link name="lpad_Link">
         <inertial>
+            <origin
+                xyz="-0.039374 5.5511E-17 -0.00025"
+                rpy="0 0 0" />
             <mass value="0.007491" />
             <inertia
-                ixx="1.0"
-                ixy="0.0"
-                ixz="0.0"
-                iyy="1.0"
-                iyz="0.0"
-                izz="1.0" />
+                ixx="1.655E-07"
+                ixy="-2.9699E-20"
+                ixz="-3.3353E-19"
+                iyy="3.5223E-06"
+                iyz="3.7058E-22"
+                izz="3.563E-06" />
         </inertial>
         <visual>
             <geometry>
-                <box size="0.06 0.01 0.01" />
+                <box size="0.07 0.01 0.01" />
             </geometry>
-            <origin xyz="-0.03 0 0" rpy="0 0 0" />
+            <origin xyz="-0.035 0 0" rpy="0 0 0" />
             <material name="">
                 <color rgba="0.1 0 0 1" />
             </material>    
         </visual>
         <collision>
+            <origin xyz="-0.035 0 0" rpy="0 0 0" />
             <geometry>
-                <box size="0.05 0.01 0.01" />
+                <box size="0.07 0.01 0.01" />
             </geometry>
-            <origin xyz="-0.03 0 0" rpy="0 0 0" />
             <material name="">
                 <color rgba="0.1 0 0 1" />
             </material>
@@ -531,7 +515,7 @@
     <limit
       lower="0"
       upper="1.5709"
-      effort="0.5"
+      effort="4"
       velocity="2" />
     <dynamics
       damping="0.01"
@@ -593,29 +577,32 @@
 
     <link name="rpad_Link">
         <inertial>
+            <origin
+                xyz="-0.039374 -2.2204E-16 -0.00025"
+                rpy="0 0 0" />
             <mass value="0.007491" />
             <inertia
-                ixx="1.0"
-                ixy="0.0"
-                ixz="0.0"
-                iyy="1.0"
-                iyz="0.0"
-                izz="1.0" />
+                ixx="1.655E-07"
+                ixy="-2.9951E-20"
+                ixz="-3.496E-19"
+                iyy="3.5223E-06"
+                iyz="1.4029E-21"
+                izz="3.563E-06" />
         </inertial>
         <visual>
             <geometry>
-                <box size="0.06 0.01 0.01" />
+                <box size="0.07 0.01 0.01" />
             </geometry>
-            <origin xyz="-0.03 0 0" rpy="0 0 0" />
+            <origin xyz="-0.035 0 0" rpy="0 0 0" />
             <material name="">
                 <color rgba="0.1 0 0 1" />
             </material>    
         </visual>
         <collision>
             <geometry>
-                <box size="0.05 0.01 0.01" />
+                <box size="0.07 0.01 0.01" />
             </geometry>
-            <origin xyz="-0.03 0 0" rpy="0 0 0" />
+            <origin xyz="-0.035 0 0" rpy="0 0 0" />
             <material name="">
                 <color rgba="0.1 0 0 1" />
             </material>
@@ -637,7 +624,7 @@
     <limit
       lower="0"
       upper="1.5709"
-      effort="1"
+      effort="4"
       velocity="2" />
     <dynamics
       damping="0.01"
