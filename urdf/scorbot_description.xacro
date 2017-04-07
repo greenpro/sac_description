@@ -182,7 +182,7 @@
     <limit
       lower="-0.6109"
       upper="2.2689"
-      effort="16"
+      effort="100"
       velocity="0.4587" />
     <dynamics
       damping="0.01"
@@ -256,7 +256,7 @@
     <limit
       lower="-2.2689"
       upper="2.2689"
-      effort="3"
+      effort="25"
       velocity="0.4587" />
     <dynamics
       damping="0.01"
@@ -423,7 +423,7 @@
   </transmission>
   
   <!--link
-    name="lpad_Link">
+    name="pad1_Link">
     <inertial>
       <origin
         xyz="-0.039374 5.5511E-17 -0.00025"
@@ -463,7 +463,7 @@
     </collision>
   </link-->
 
-    <link name="lpad_Link">
+    <link name="pad1_Link">
         <inertial>
             <origin
                 xyz="-0.039374 5.5511E-17 -0.00025"
@@ -498,7 +498,7 @@
     </link>
 
   <joint
-    name="lpad_joint"
+    name="pad1_joint"
     type="revolute">
     <origin
       xyz="0 -0.0545 -0.0905"
@@ -509,25 +509,25 @@
     <parent
       link="gripper_Link" />
     <child
-      link="lpad_Link" />
+      link="pad1_Link" />
     <axis
       xyz="0 0 1" />
     <limit
       lower="0"
       upper="1.5709"
-      effort="4"
+      effort="1"
       velocity="2" />
     <dynamics
       damping="0.01"
       friction="0.01" />
   </joint>
 
-  <transmission name="lpadTransmission">
+  <transmission name="pad1Transmission">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="lpad_joint" type="SimpleTransmission">
+    <joint name="pad1_joint" type="SimpleTransmission">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="lpad_motor">
+    <actuator name="pad1_motor">
       <machanicalReduction>1</machanicalReduction>
       <hardwareInterface>EffortJointInterface</hardwareInterface>
     </actuator>
@@ -575,7 +575,7 @@
     <xacro:defaultInertial mass="1" />
   </link-->
 
-    <link name="rpad_Link">
+    <link name="pad2_Link">
         <inertial>
             <origin
                 xyz="-0.039374 -2.2204E-16 -0.00025"
@@ -610,7 +610,7 @@
     </link>
 
   <joint
-    name="rpad_joint"
+    name="pad2_joint"
     type="revolute">
     <origin
       xyz="0 0.0545 -0.0905"
@@ -618,25 +618,25 @@
     <parent
       link="gripper_Link" />
     <child
-      link="rpad_Link" />
+      link="pad2_Link" />
     <axis
       xyz="0 0 -1" />
     <limit
       lower="0"
       upper="1.5709"
-      effort="4"
+      effort="1"
       velocity="2" />
     <dynamics
       damping="0.01"
       friction="0.01" />
   </joint>
 
-  <transmission name="rpadTransmission">
+  <transmission name="pad2Transmission">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="rpad_joint" type="SimpleTransmission">
+    <joint name="pad2_joint" type="SimpleTransmission">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
     </joint>
-    <actuator name="rpad_motor">
+    <actuator name="pad2_motor">
       <machanicalReduction>1</machanicalReduction>
       <hardwareInterface>EffortJointInterface</hardwareInterface>
     </actuator>
