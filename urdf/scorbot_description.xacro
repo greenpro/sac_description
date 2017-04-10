@@ -5,241 +5,561 @@
     <xacro:macro name="defaultInertial" params="mass">
         <inertial>
             <mass value="${mass}" />
-            <inertia 
-                ixx="1.0" 
-                ixy="0.0" 
-                ixz="0.0"
-                iyy="1.0"
-                iyz="0.0"
-                izz="1.0" />
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
         </inertial>
     </xacro:macro>
 
-    <xacro:macro name="mesh" params="file xyz rpy rgba">
-        <visual>
-            <origin xyz="${xyz}" rpy="${rpy}" />
-            <geometry>
-                <mesh filename="${file}" />
-            </geometry>
-            <material name="">
-                <color rgba="${rgba}" />
-            </material>
-        </visual>
+  <link
+      name="world" />
 
-        <collision>
-            <origin xyz="${xyz}" rpy="${rpy}" />
-            <geometry>
-                <mesh filename="${file}" />
-            </geometry>
-        </collision>
-    </xacro:macro>
-
-    <xacro:macro name="boxTemplate" params="xyz rpy hwd rgba">
-        <visual>
-            <geometry>
-                <box size="${hwd}" />
-            </geometry>
-            <origin rpy="${rpy}" xyz="${xyz}" />
-            <material name="" >
-                <color rgba="${rgba}" />
-            </material>
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${hwd}" />
-            </geometry>
-            <origin rpy="${rpy}" xyz="${xyz}" />
-        </collision>
-    </xacro:macro>
-
-    <link name="world" />
-
-    <link name="base_Link">
-        <xacro:defaultInertial mass="1" />
-
-        <xacro:mesh file="package://sac_description/meshes/base_Link.STL" xyz="0 0 0" rpy="0 0 0" rgba="0.01706 0.01961 0.02824 1" />
-    </link>
+  <link
+    name="base_Link">
+    <inertial>
+      <origin
+        xyz="0.13275 0.14932 0.15353"
+        rpy="0 0 0" />
+      <mass
+        value="0.001" />
+      <inertia
+        ixx="0.10125"
+        ixy="-0.00021844"
+        ixz="-0.00033793"
+        iyy="0.087972"
+        iyz="0.0034335"
+        izz="0.095961" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sac_description/meshes/base_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.01706 0.01961 0.02824 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sac_description/meshes/base_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
   
-    <joint name="world_joint" type="fixed">
-        <parent link="world" />
-        <child link="base_Link" />
+  <joint name="world_joint" type="fixed">
+    <parent link="world" />
+    <child link="base_Link" />
+  </joint>
+
+
+  <link
+    name="shoulder_Link">
+    <inertial>
+      <origin
+        xyz="0.00064794 -0.0081798 0.11189"
+        rpy="0 0 0" />
+      <mass
+        value="0.001" />
+      <inertia
+        ixx="0.069345"
+        ixy="0.00053463"
+        ixz="-9.59E-05"
+        iyy="0.09864"
+        iyz="0.0061367"
+        izz="0.10261" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sac_description/meshes/shoulder_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.02941 0.04902 0.24902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sac_description/meshes/shoulder_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <joint
+    name="base_joint"
+    type="revolute">
+    <origin
+      xyz="0.13222 -0.16175 0.21721"
+      rpy="0.063114 2.647E-17 -0.063535" />
+    <parent
+      link="base_Link" />
+    <child
+      link="shoulder_Link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.7054"
+      upper="2.7054"
+      effort="100"
+      velocity="0.3488" />
+    <dynamics
+      damping="0.01"
+      friction="0.01" />
+  </joint>
+
+  <transmission name="baseTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="base_joint" type="SimpleTransmission">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
     </joint>
+    <actuator name="base_motor">
+      <machanicalReduction>1</machanicalReduction>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </actuator>
+  </transmission>
 
-    <link name="shoulder_Link">
-        <xacro:defaultInertial mass="1" />
+  <link
+    name="elbow_Link">
+    <inertial>
+      <origin
+        xyz="7.2164E-16 -0.11075 0.0039402"
+        rpy="0 0 0" />
+      <mass
+        value="0.001" />
+      <inertia
+        ixx="0.021626"
+        ixy="-8.9392E-17"
+        ixz="2.0553E-15"
+        iyy="0.013632"
+        iyz="-2.3367E-05"
+        izz="0.033242" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sac_description/meshes/elbow_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.02941 0.04902 0.34902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sac_description/meshes/elbow_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
 
-        <xacro:mesh file="package://sac_description/meshes/shoulder_Link.STL" xyz="0 0 0" rpy="0 0 0" 
-            rgba="0.02941 0.04902 0.24902 1" />
-    </link>
+  <joint
+    name="shoulder_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.029 0.19766"
+      rpy="0 0 0" />
+    <parent
+      link="shoulder_Link" />
+    <child
+      link="elbow_Link" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-0.6109"
+      upper="2.2689"
+      effort="1000"
+      velocity="0.4587" />
+    <!--dynamics
+      damping="0.01"
+      friction="0.01" /-->
+  </joint>
 
-    <joint name="base_joint" type="revolute">
-        <parent link="base_Link" />
-        <child link="shoulder_Link" />
-        <axis xyz="0 0 1" />
-        <origin xyz="0.13222 -0.16175 0.21721" rpy="0.063114 2.647E-17 -0.063535" />
-        <limit lower="-2.7054" upper="2.7054" effort="1000" velocity="0.3488" />
+  <transmission name="shoulderTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="shoulder_joint" type="SimpleTransmission">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
     </joint>
+    <actuator name="shoulder_motor">
+      <machanicalReduction>1</machanicalReduction>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </actuator>
+  </transmission>
 
-    <transmission name="baseTransmission">
-        <type>transmission_interface/SimpleTransmission</type>
-        <joint name="base_joint" type="SimpleTransmission">
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </joint>
-        <actuator name="base_motor">
-            <machanicalReduction>1</machanicalReduction>
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </actuator>
-    </transmission>
-
-    <link name="elbow_Link">
-        <xacro:defaultInertial mass="1" />
-
-        <xacro:mesh file="package://sac_description/meshes/elbow_Link.STL" xyz="0 0 0" rpy="0 0 0" rgba="0.02941 0.04902 0.34902 1" />
-    </link>
-
-    <joint name="shoulder_joint" type="revolute">
-        <parent link="shoulder_Link" />
-        <child link="elbow_Link" />
-        <axis xyz="-1 0 0" />
-        <limit lower="-0.6109" upper="2.2689" effort="1000" velocity="0.4587" />
-        <origin xyz="0 -0.029 0.19766" rpy="0 0 0" />
-    </joint>
-
-    <transmission name="shoulderTransmission">
-        <type>transmission_interface/SimpleTransmission</type>
-        <joint name="shoulder_joint" type="SimpleTransmission">
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </joint>
-        <actuator name="shoulder_motor">
-            <machanicalReduction>1</machanicalReduction>
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </actuator>
-    </transmission>
-
-    <link name="pitch_Link">
-        <xacro:defaultInertial mass="1" />
-
-        <xacro:mesh file="package://sac_description/meshes/pitch_Link.STL" xyz="0 0 0" rpy="0 0 0" rgba="0.02941 0.04902 0.44902 1" />
-    </link>
+  <link
+    name="pitch_Link">
+    <inertial>
+      <origin
+        xyz="2.9815E-13 -0.073952 0.003323"
+        rpy="0 0 0" />
+      <mass
+        value="0.001" />
+      <inertia
+        ixx="0.027436"
+        ixy="-1.1652E-13"
+        ixz="-1.6685E-15"
+        iyy="0.0081405"
+        iyz="0.00011392"
+        izz="0.034105" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sac_description/meshes/pitch_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.02941 0.04902 0.44902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sac_description/meshes/pitch_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
   
-    <joint name="elbow_joint" type="revolute">
-        <parent link="elbow_Link" />
-        <child link="pitch_Link" />
-        <axis xyz="1 0 0" />
-        <limit lower="-2.2689" upper="2.2689" effort="1000" velocity="0.4587" />
-        <origin xyz="0 -0.22 0" rpy="1.3878E-17 1.6914E-16 1.3461E-15" />
+  <joint
+    name="elbow_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.22 0"
+      rpy="1.3878E-17 1.6914E-16 1.3461E-15" />
+    <parent
+      link="elbow_Link" />
+    <child
+      link="pitch_Link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-2.2689"
+      upper="2.2689"
+      effort="10"
+      velocity="0.4587" />
+    <dynamics
+      damping="0.01"
+      friction="0.01" />
+  </joint>
+
+  <transmission name="elbowTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="elbow_joint" type="SimpleTransmission">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
     </joint>
+    <actuator name="elbow_motor">
+      <machanicalReduction>1</machanicalReduction>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </actuator>
+  </transmission>
 
-    <transmission name="elbowTransmission">
-        <type>transmission_interface/SimpleTransmission</type>
-        <joint name="elbow_joint" type="SimpleTransmission">
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </joint>
-        <actuator name="elbow_motor">
-            <machanicalReduction>1</machanicalReduction>
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </actuator>
-    </transmission>
-
-    <link name="roll_Link">
-        <xacro:defaultInertial mass="1" />
-
-        <xacro:mesh file="package://sac_description/meshes/roll_Link.STL" xyz="0 0 0" rpy="0 0 0" rgba="0.02941 0.14902 0.14902 1" />
-    </link>
+  <link
+    name="roll_Link">
+    <inertial>
+      <origin
+        xyz="5.0577E-05 3.8307E-10 -0.018366"
+        rpy="0 0 0" />
+      <mass
+        value="0.1" />
+      <inertia
+        ixx="0.00036556"
+        ixy="-7.8517E-13"
+        ixz="7.4017E-07"
+        iyy="0.00036398"
+        iyz="-2.2678E-13"
+        izz="6.7274E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sac_description/meshes/roll_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.02941 0.14902 0.14902 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sac_description/meshes/roll_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
   
-    <joint name="pitch_joint" type="revolute">
-        <parent link="pitch_Link" />
-        <child link="roll_Link" />
-        <axis xyz="0 1 0" />
-        <limit lower="-2.2689" upper="2.2689" effort="1000" velocity="1.4478" />
-        <origin xyz="0 -0.22 0" rpy="-1.5708 -1.5708 0" />
+  <joint
+    name="pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.22 0"
+      rpy="-1.5708 -1.5708 0" />
+    <parent
+      link="pitch_Link" />
+    <child
+      link="roll_Link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-2.2689"
+      upper="2.2689"
+      effort="100"
+      velocity="1.4478" />
+    <!--dynamics
+      damping="0.01"
+      friction="0.01" /-->
+  </joint>
+
+  <transmission name="pitchTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="pitch_joint" type="SimpleTransmission">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
     </joint>
+    <actuator name="pitch_motor">
+      <machanicalReduction>1</machanicalReduction>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </actuator>
+  </transmission>
 
-    <transmission name="pitchTransmission">
-        <type>transmission_interface/SimpleTransmission</type>
-        <joint name="pitch_joint" type="SimpleTransmission">
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </joint>
-        <actuator name="pitch_motor">
-            <machanicalReduction>1</machanicalReduction>
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </actuator>
-    </transmission>
+  <link
+    name="gripper_Link">
+    <inertial>
+      <origin
+        xyz="2.2204E-16 -8.3267E-17 0.070299"
+        rpy="0 0 0" />
+      <mass
+        value="0.0001" />
+      <inertia
+        ixx="0.00098187"
+        ixy="-2.7952E-20"
+        ixz="2.8189E-18"
+        iyy="0.00095638"
+        iyz="-2.4183E-18"
+        izz="0.00013429" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sac_description/meshes/gripper_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.1 0.1 0.1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://sac_description/meshes/gripper_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
 
-    <link name="gripper_Link">
-        <xacro:defaultInertial mass="1" />
+  <joint
+    name="roll_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0.01"
+      rpy="0 0 0" />
+    <parent
+      link="roll_Link" />
+    <child
+      link="gripper_Link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1000"
+      upper="1000"
+      effort="100"
+      velocity="1.8491" />
+    <dynamics
+      damping="0.01"
+      friction="0.01" />
+  </joint>
 
-        <xacro:mesh file="package://sac_description/meshes/gripper_Link.STL" xyz="0 0 0" rgb="0 0 0" rgba="0.1 0.1 0.1 1" />
-    </link>
-
-    <joint name="roll_joint" type="revolute">
-        <parent link="roll_Link" />
-        <child link="gripper_Link" />
-        <axis xyz="0 0 1" />
-        <limit lower="-1000" upper="1000" effort="1000" velocity="1.8491" />
-        <origin xyz="0 0 0.01" rpy="0 0 0" />
+  <transmission name="rollTransmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="roll_joint" type="SimpleTransmission">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
     </joint>
-
-    <transmission name="rollTransmission">
-        <type>transmission_interface/SimpleTransmission</type>
-        <joint name="roll_joint" type="SimpleTransmission">
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </joint>
-        <actuator name="roll_motor">
-            <machanicalReduction>1</machanicalReduction>
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </actuator>
-    </transmission>
+    <actuator name="roll_motor">
+      <machanicalReduction>1</machanicalReduction>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </actuator>
+  </transmission>
   
     <link name="pad1_Link">
-        <xacro:defaultInertial mass="1" />
+        <xacro:defaultInertial mass="0.0001" />
 
-        <xacro:boxTemplate xyz="-0.035 0 0" rpy="0 0 0" hwd="0.07 0.01 0.01" rgba="0.1 0 0 1" />
+        <!--inertial>
+            <origin
+                xyz="-0.039374 5.5511E-17 -0.00025"
+                rpy="0 0 0" />
+            <mass value="0.007491" />
+            <inertia
+                ixx="1.655E-07"
+                ixy="-2.9699E-20"
+                ixz="-3.3353E-19"
+                iyy="3.5223E-06"
+                iyz="3.7058E-22"
+                izz="3.563E-06" />
+        </inertial-->
+        <visual>
+            <geometry>
+                <box size="0.07 0.01 0.01" />
+            </geometry>
+            <origin xyz="-0.035 0 0" rpy="0 0 0" />
+            <material name="">
+                <color rgba="0.1 0 0 1" />
+            </material>    
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.07 0.01 0.01" />
+            </geometry>
+            <origin xyz="-0.035 0 0" rpy="0 0 0" />
+            <material name="">
+                <color rgba="0.1 0 0 1" />
+            </material>
+        </collision>
     </link>
 
-    <joint name="pad1_joint" type="revolute">
-        <parent link="gripper_Link" />
-        <child link="pad1_Link" />
-        <axis xyz="0 0 1" />
-        <limit lower="0" upper="1.5709" effort="1000" velocity="2" />
-        <origin xyz="0 -0.0545 -0.0905" rpy="1.5708 -0.74758 -1.5708" />
+  <joint
+    name="pad1_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.0545 -0.0905"
+      rpy="1.5708 -0.74758 -1.5708" />
+    <parent
+      link="gripper_Link" />
+    <child
+      link="pad1_Link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="1.5709"
+      effort="100"
+      velocity="2" />
+  </joint>
+
+  <transmission name="pad1Transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="pad1_joint" type="SimpleTransmission">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
     </joint>
-
-    <transmission name="pad1Transmission">
-        <type>transmission_interface/SimpleTransmission</type>
-        <joint name="pad1_joint" type="SimpleTransmission">
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </joint>
-        <actuator name="pad1_motor">
-            <machanicalReduction>1</machanicalReduction>
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </actuator>
-    </transmission>
-
+    <actuator name="pad1_motor">
+      <machanicalReduction>1</machanicalReduction>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </actuator>
+  </transmission>
+  
     <link name="pad2_Link">
-        <xacro:defaultInertial mass="1" />
+        <xacro:defaultInertial mass="0.0001" />
 
-        <xacro:boxTemplate xyz="-0.035 0 0" rpy="0 0 0" hwd="0.07 0.01 0.01" rgba="0.1 0 0 1" />
+        <!--inertial>
+            <origin
+                xyz="-0.039374 -2.2204E-16 -0.00025"
+                rpy="0 0 0" />
+            <mass value="0.007491" />
+            <inertia
+                ixx="1.655E-07"
+                ixy="-2.9951E-20"
+                ixz="-3.496E-19"
+                iyy="3.5223E-06"
+                iyz="1.4029E-21"
+                izz="3.563E-06" />
+        </inertial-->
+        <visual>
+            <geometry>
+                <box size="0.07 0.01 0.01" />
+            </geometry>
+            <origin xyz="-0.035 0 0" rpy="0 0 0" />
+            <material name="">
+                <color rgba="0.1 0 0 1" />
+            </material>    
+        </visual>
+        <collision>
+            <geometry>
+                <box size="0.07 0.01 0.01" />
+            </geometry>
+            <origin xyz="-0.035 0 0" rpy="0 0 0" />
+            <material name="">
+                <color rgba="0.1 0 0 1" />
+            </material>
+        </collision>
     </link>
 
-    <joint name="pad2_joint" type="revolute">
-        <parent link="gripper_Link" />
-        <child link="pad2_Link" />
-        <axis xyz="0 0 -1" />
-        <limit lower="0" upper="1.5709" effort="1000" velocity="2" />
-        <origin xyz="0 0.0545 -0.0905" rpy="-1.5708 -0.74758 1.5708" />
-    </joint>
+  <joint
+    name="pad2_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.0545 -0.0905"
+      rpy="-1.5708 -0.74758 1.5708" />
+    <parent
+      link="gripper_Link" />
+    <child
+      link="pad2_Link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="1.5709"
+      effort="100"
+      velocity="2" />
+  </joint>
 
-    <transmission name="pad2Transmission">
-        <type>transmission_interface/SimpleTransmission</type>
-        <joint name="pad2_joint" type="SimpleTransmission">
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </joint>
-        <actuator name="pad2_motor">
-            <machanicalReduction>1</machanicalReduction>
-            <hardwareInterface>EffortJointInterface</hardwareInterface>
-        </actuator>
-    </transmission>
+  <transmission name="pad2Transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="pad2_joint" type="SimpleTransmission">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="pad2_motor">
+      <machanicalReduction>1</machanicalReduction>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </actuator>
+  </transmission>
 
 
     <!-- Gazebo plugin for ROS Control -->
