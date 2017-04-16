@@ -116,7 +116,8 @@
       lower="-2.7054"
       upper="2.7054"
       effort="100"
-      velocity="0.3488" />
+      velocity="0.01488" />
+  <!--0.3488-->
     <dynamics
       damping="0.01"
       friction="0.01" />
@@ -189,8 +190,9 @@
     <limit
       lower="-0.6109"
       upper="2.2689"
-      effort="1000"
-      velocity="0.4587" />
+      effort="10000"
+      velocity="0.01587" />
+  <!--0.4587-->
     <!--dynamics
       damping="0.01"
       friction="0.01" /-->
@@ -264,7 +266,8 @@
       lower="-2.2689"
       upper="2.2689"
       effort="10"
-      velocity="0.4587" />
+      velocity="0.01587" />
+  <!--0.4587-->
     <dynamics
       damping="0.01"
       friction="0.01" />
@@ -338,7 +341,8 @@
       lower="-2.2689"
       upper="2.2689"
       effort="100"
-      velocity="1.4478" />
+      velocity="0.04478" />
+  <!--1.4478-->
     <!--dynamics
       damping="0.01"
       friction="0.01" /-->
@@ -412,7 +416,8 @@
       lower="-1000"
       upper="1000"
       effort="100"
-      velocity="1.8491" />
+      velocity="0.08491" />
+  <!--18491-->
     <dynamics
       damping="0.01"
       friction="0.01" />
@@ -566,6 +571,21 @@
     <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>/scorbot</robotNamespace>
+        </plugin>
+        <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+            <arm>
+                <arm_name>scorbot_model</arm_name>
+                <palm_link>roll_Link</palm_link>
+                <gripper_link>pad1_Link</gripper_link>
+                <gripper_link>pad2_Link</gripper_link>
+            </arm>
+            <forces_angle_tolerances>100</forces_angle_tolerances>
+            <update_rate>4</update_rate>
+            <grip_count_threshold>4</grip_count_threshold>
+            <max_grip_count>8</max_grip_count>
+            <release_tolerance>0.005</release_tolerance>
+            <disable_collisions_on_attach>false</disable_collisions_on_attach>
+            <contact_topic>__default_topic__</contact_topic>
         </plugin>
     </gazebo>
 </robot>
