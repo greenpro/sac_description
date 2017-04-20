@@ -30,11 +30,12 @@
     </inertial>
     <visual>
       <origin
-        xyz="0 0 0"
+        xyz="0 0 0.010"
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://sac_description/meshes/base_Link.STL" />
+          filename="package://sac_description/meshes/base_Link2.stl"
+	  scale="0.001 0.001 0.001"/>
       </geometry>
       <material
         name="">
@@ -44,11 +45,12 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 0"
+        xyz="0 0 0.010"
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://sac_description/meshes/base_Link.STL" />
+          filename="package://sac_description/meshes/base_Link2.stl"
+	  scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -63,8 +65,11 @@
     name="shoulder_Link">
     <inertial>
       <origin
+        xyz="0 0 0.11189"
+        rpy="0 0 0" /> 
+      <!--origin
         xyz="0.00064794 -0.0081798 0.11189"
-        rpy="0 0 0" />
+        rpy="0 0 0" /--> 
       <mass
         value="0.001" />
       <inertia
@@ -104,8 +109,8 @@
     name="base_joint"
     type="revolute">
     <origin
-      xyz="0.13222 -0.16175 0.21721"
-      rpy="0.063114 2.647E-17 -0.063535" />
+      xyz="0 0 0.160"
+      rpy="0 0 0" />
     <parent
       link="base_Link" />
     <child
@@ -115,8 +120,8 @@
     <limit
       lower="-2.7054"
       upper="2.7054"
-      effort="100"
-      velocity="0.01488" />
+      effort="10"
+      velocity="0.1488" />
   <!--0.3488-->
     <dynamics
       damping="0.01"
@@ -574,17 +579,17 @@
         </plugin>
         <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
             <arm>
-                <arm_name>scorbot_model</arm_name>
-                <palm_link>roll_Link</palm_link>
+                <arm_name>scorbot</arm_name>
+                <palm_link>gripper_Link</palm_link>
                 <gripper_link>pad1_Link</gripper_link>
                 <gripper_link>pad2_Link</gripper_link>
             </arm>
-            <forces_angle_tolerances>100</forces_angle_tolerances>
+            <forces_angle_tolerances>1</forces_angle_tolerances>
             <update_rate>4</update_rate>
             <grip_count_threshold>4</grip_count_threshold>
             <max_grip_count>8</max_grip_count>
             <release_tolerance>0.005</release_tolerance>
-            <disable_collisions_on_attach>false</disable_collisions_on_attach>
+            <disable_collisions_on_attach>true</disable_collisions_on_attach>
             <contact_topic>__default_topic__</contact_topic>
         </plugin>
     </gazebo>
