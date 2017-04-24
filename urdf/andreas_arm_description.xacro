@@ -122,16 +122,43 @@
     <link name="world" />
 
     <link name="base_link">
-        <xacro:cylinderTemplate length="${baseZ}" radius="${baseRadius}" roll="0" pitch="0" yaw="0" ox="0" oy="0" oz="${baseZ / 2}" color="white" />
+        <xacro:cylinderTemplate 
+	    length="${baseZ}" 
+	    radius="${baseRadius}" 
+	    roll="0" 
+	    pitch="0" 
+	    yaw="0" 
+	    ox="0" 
+	    oy="0" 
+	    oz="${baseZ / 2}" 
+	    color="white" />
 
         <xacro:defaultInertial mass="1000" />
     </link>
 
     <link name="alpha_link">
         <!-- Shaft -->
-        <xacro:cylinderTemplate length="${alphaZ0}" radius="${alphaRadius0}" roll="0" pitch="0" yaw="0" ox="0" oy="0" oz="${alphaZ0 / 2}" color="white" />
+        <xacro:cylinderTemplate 
+	    length="${alphaZ0}" 
+	    radius="${alphaRadius0}" 
+	    roll="0" 
+	    pitch="0" 
+	    yaw="0" 
+	    ox="0" 
+	    oy="0" 
+	    oz="${alphaZ0 / 2}" 
+	    color="white" />
 
-        <xacro:cylinderTemplate length="${alphaZ1}" radius="${alphaRadius1}" roll="0" pitch="0" yaw="0" ox="0" oy="0" oz="${alphaZ0 + alphaZ1 / 2}" color="white" />
+        <xacro:cylinderTemplate 
+	    length="${alphaZ1}" 
+	    radius="${alphaRadius1}" 
+	    roll="0" 
+	    pitch="0" 
+	    yaw="0" 
+	    ox="0" 
+	    oy="0" 
+	    oz="${alphaZ0 + alphaZ1 / 2}" 
+	    color="white" />
 
         <!-- joint Hinge -->
         <xacro:boxTemplate x="${alphaJointX}" y="${alphaJointBlockY}" z="${alphaJointBlockZ}" 
