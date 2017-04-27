@@ -19,7 +19,7 @@
         xyz="0.13275 0.14932 0.15353"
         rpy="0 0 0" />
       <mass
-        value="0.001" />
+        value="13.939" />
       <inertia
         ixx="0.10125"
         ixy="-0.00021844"
@@ -30,7 +30,7 @@
     </inertial>
     <visual>
       <origin
-        xyz="0 0 0.010"
+        xyz="0 0 0.020"
         rpy="0 0 0" />
       <geometry>
         <mesh
@@ -45,7 +45,7 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 0.010"
+        xyz="0 0 0.020"
         rpy="0 0 0" />
       <geometry>
         <mesh
@@ -71,7 +71,7 @@
         xyz="0.00064794 -0.0081798 0.11189"
         rpy="0 0 0" /--> 
       <mass
-        value="0.001" />
+        value="0.01" />
       <inertia
         ixx="0.069345"
         ixy="0.00053463"
@@ -109,7 +109,7 @@
     name="base_joint"
     type="revolute">
     <origin
-      xyz="0 0 0.160"
+      xyz="0 0 0.165"
       rpy="0 0 0" />
     <parent
       link="base_Link" />
@@ -124,7 +124,7 @@
       velocity="0.1488" />
   <!--0.3488-->
     <dynamics
-      damping="0.01"
+      damping="0.0"
       friction="0.01" />
   </joint>
 
@@ -422,7 +422,6 @@
       upper="1000"
       effort="100"
       velocity="0.08491" />
-  <!--18491-->
     <dynamics
       damping="0.01"
       friction="0.01" />
@@ -455,7 +454,7 @@
 
         <visual>
             <geometry>
-                <box size="0.07 0.01 0.01" />
+                <box size="0.05 0.01 0.01" />
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <material name="">
@@ -464,7 +463,7 @@
         </visual>
         <collision>
             <geometry>
-                <box size="0.07 0.01 0.01" />
+                <box size="0.05 0.01 0.01" />
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <material name="">
@@ -483,7 +482,6 @@
     </link>
     
     <link name="pad2_Link">
-        <!--xacro:defaultInertial mass="0.1" /-->
         <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
           <mass
@@ -499,7 +497,7 @@
 
         <visual>
             <geometry>
-                <box size="0.07 0.01 0.01" />
+                <box size="0.05 0.01 0.01" />
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <material name="">
@@ -508,7 +506,7 @@
         </visual>
         <collision>
             <geometry>
-                <box size="0.07 0.01 0.01" />
+                <box size="0.05 0.01 0.01" />
             </geometry>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <material name="">
@@ -526,97 +524,11 @@
         </collision>
     </link>
     
-    <link name="pad1grip_Link">
-        <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0" />
-          <mass
-            value="0.0000001" />
-          <inertia
-            ixx="0"
-            ixy="0"
-            ixz="0"
-            iyy="0"
-            iyz="0"
-            izz="0" />
-        </inertial>
-
-        <visual>
-            <geometry>
-                <box size="0.0001 0.01 0.01" />
-            </geometry>
-            <origin xyz="0.035 0 -0.01" rpy="0 0 0" />
-            <material name="">
-                <color rgba="0.1 0 0 1" />
-            </material>    
-        </visual>
-        <collision>
-            <geometry>
-                <box size="0.0001 0.01 0.01" />
-            </geometry>
-            <origin xyz="0.035 0 -0.01" rpy="0 0 0" />
-            <material name="">
-                <color rgba="0.1 0 0 1" />
-            </material>
-	    <friction>
-		<ode>
-		    <mu>100</mu>
-		    <mu2>100</mu2>
-		    <fdir1>0 0 0</fdir1>
-		    <slip1>0</slip1>
-		    <slip2>0</slip2>
-		</ode>
-	     </friction>
-        </collision>
-    </link>
-    
-    <link name="pad2grip_Link">
-        <inertial>
-            <origin xyz="0 0 0" rpy="0 0 0" />
-          <mass
-            value="0.0000001" />
-          <inertia
-            ixx="0"
-            ixy="0"
-            ixz="0"
-            iyy="0"
-            iyz="0"
-            izz="0" />
-        </inertial>
-
-        <visual>
-            <geometry>
-                <box size="0.0001 0.01 0.01" />
-            </geometry>
-            <origin xyz="0.035 0 -0.01" rpy="0 0 0" />
-            <material name="">
-                <color rgba="0.1 0 0 1" />
-            </material>    
-        </visual>
-        <collision>
-            <geometry>
-                <box size="0.0001 0.01 0.01" />
-            </geometry>
-            <origin xyz="0.035 0 -0.01" rpy="0 0 0" />
-            <material name="">
-                <color rgba="0.1 0 0 1" />
-            </material>
-	    <friction>
-		<ode>
-		    <mu>100</mu>
-		    <mu2>100</mu2>
-		    <fdir1>0 0 0</fdir1>
-		    <slip1>0</slip1>
-		    <slip2>0</slip2>
-		</ode>
-	     </friction>
-        </collision>
-    </link>
-
     <joint
         name="pad1_joint"
         type="prismatic">
         <origin
-            xyz="0 0.005 -0.137"
+            xyz="0 0.005 -0.127"
             rpy="0 1.5708 1.5708" />
         <parent
             link="gripper_Link" />
@@ -627,7 +539,7 @@
         <limit
             lower="0"
             upper="0.0325"
-            effort="0.01"
+            effort="0.001"
             velocity="1" />
       </joint>
     
@@ -635,7 +547,7 @@
           name="pad2_joint"
           type="prismatic">
         <origin
-            xyz="0 -0.005 -0.137"
+            xyz="0 -0.005 -0.127"
             rpy="0 1.5708 -1.5708" />
         <parent
             link="gripper_Link" />
@@ -646,18 +558,8 @@
         <limit
             lower="0"
             upper="0.0325"
-            effort="0.01"
+            effort="0.001"
             velocity="1" />
-      </joint>
-
-      <joint name="pad1grip_joint" type="fixed">
-	  <parent link="pad1_Link" />
-	  <child link="pad1grip_Link" />
-      </joint>
-
-      <joint name="pad2grip_joint" type="fixed">
-	  <parent link="pad2_Link" />
-	  <child link="pad2grip_Link" />
       </joint>
 
       <transmission name="pad1Transmission">
@@ -696,12 +598,12 @@
                 <gripper_link>pad1_Link</gripper_link>
                 <gripper_link>pad2_Link</gripper_link>
             </arm>
-            <forces_angle_tolerances>100</forces_angle_tolerances>
+            <forces_angle_tolerance>100</forces_angle_tolerance>
             <update_rate>4</update_rate>
             <grip_count_threshold>4</grip_count_threshold>
             <max_grip_count>8</max_grip_count>
-            <release_tolerance>0.005</release_tolerance>
-            <disable_collisions_on_attach>true</disable_collisions_on_attach>
+            <release_tolerance>0.010</release_tolerance>
+            <disable_collisions_on_attach>false</disable_collisions_on_attach>
             <contact_topic>__default_topic__</contact_topic>
         </plugin>
     </gazebo>
