@@ -1,6 +1,6 @@
 # Southern Arm Control Description
 
-This project holds the robot description files the Southern Arm Control workspace. Full documentation for the sac project can be found at craigcode1010.com under projects > SAC.
+This project holds the robot description files the Southern Arm Control workspace. Full documentation for the sac project can be found at [CraigCode1010.com](craigcode1010.com) under projects > SAC.
 
 ## Installation
 
